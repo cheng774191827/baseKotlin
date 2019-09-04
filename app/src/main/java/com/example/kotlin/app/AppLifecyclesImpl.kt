@@ -1,5 +1,6 @@
 package com.base.application.app
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
@@ -18,6 +19,7 @@ import com.example.kotlin.R
 import io.reactivex.annotations.NonNull
 import timber.log.Timber
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class AppLifecyclesImpl : AppLifecycles {
     override fun attachBaseContext(@NonNull base: Context) {
         //          MultiDex.install(base);  //这里比 onCreate 先执行,常用于 MultiDex 初始化,插件化框架的初始化
@@ -51,7 +53,7 @@ class AppLifecyclesImpl : AppLifecycles {
         //使用 IntelligentCache.KEY_KEEP 作为 key 的前缀, 可以使储存的数据永久存储在内存中
         //否则存储在 LRU 算法的存储空间中, 前提是 extras 使用的是 IntelligentCache (框架默认使用)
         ArmsUtils.obtainAppComponentFromContext(application).extras()
-            .put(IntelligentCache.getKeyOfKeep(RefWatcher::class.java!!.getName()), if (BuildConfig.DEBUG) LeakCanary.install(application) else RefWatcher.DISABLED)
+            .put(IntelligentCache.getKeyOfKeep(RefWatcher::class.java.name), if (BuildConfig.DEBUG) LeakCanary.install(application) else RefWatcher.DISABLED)
     }
 
     override fun onTerminate(@NonNull application: Application) {
@@ -60,6 +62,7 @@ class AppLifecyclesImpl : AppLifecycles {
 
     companion object {
 
+        @SuppressLint("StaticFieldLeak")
         var instance: Context? = null
             private set
 

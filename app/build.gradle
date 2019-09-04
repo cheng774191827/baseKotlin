@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -50,11 +52,11 @@ dependencies {
     implementation rootProject.ext.dependencies["refreshLayout"]
     implementation rootProject.ext.dependencies["refreshHeader"]
     //view
-    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+    kapt (rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
     implementation rootProject.ext.dependencies["paginate"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    kapt rootProject.ext.dependencies["dagger2-compiler"]
     implementation rootProject.ext.dependencies["progressmanager"]
     implementation rootProject.ext.dependencies["retrofit-url-manager"]
     implementation rootProject.ext.dependencies["lifecyclemodel"]

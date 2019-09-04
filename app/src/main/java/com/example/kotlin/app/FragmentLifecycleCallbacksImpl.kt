@@ -66,7 +66,7 @@ class FragmentLifecycleCallbacksImpl : FragmentManager.FragmentLifecycleCallback
         (ArmsUtils
             .obtainAppComponentFromContext(f.activity!!)
             .extras()
-            .get(IntelligentCache.getKeyOfKeep(RefWatcher::class.java!!.getName())) as RefWatcher)
+            .get(IntelligentCache.getKeyOfKeep(RefWatcher::class.java.name)) as RefWatcher)
             .watch(f)
     }
 

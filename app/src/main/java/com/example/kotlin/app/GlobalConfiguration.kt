@@ -93,17 +93,17 @@ class GlobalConfiguration : ConfigModule {
             //RxJava 必须要使用 ErrorHandleSubscriber (默认实现 Subscriber 的 onError 方法), 此监听才生效
             .responseErrorListener(ResponseErrorListenerImpl())
             .gsonConfiguration {//这里可以自己自定义配置 Gson 的参数
-                    context1, gsonBuilder ->
+                    _, gsonBuilder ->
                 gsonBuilder
                     .serializeNulls()//支持序列化值为 null 的参数
                     .enableComplexMapKeySerialization()//支持将序列化 key 为 Object 的 Map, 默认只能序列化 key 为 String 的 Map
             }
             .retrofitConfiguration {//这里可以自己自定义配置 Retrofit 的参数, 甚至您可以替换框架配置好的 OkHttpClient 对象 (但是不建议这样做, 这样做您将损失框架提供的很多功能)
-                    context1, retrofitBuilder ->
+                    _, _ ->
                 //                    retrofitBuilder.addConverterFactory(FastJsonConverterFactory.create());//比如使用 FastJson 替代 Gson
             }
             .okhttpConfiguration {//这里可以自己自定义配置 Okhttp 的参数
-                    context1, okhttpBuilder ->
+                    _, okhttpBuilder ->
                 //                    okhttpBuilder.sslSocketFactory(); //支持 Https, 详情请百度
                 okhttpBuilder.writeTimeout(10, TimeUnit.SECONDS)
                 //使用一行代码监听 Retrofit／Okhttp 上传下载进度监听,以及 Glide 加载进度监听, 详细使用方法请查看 https://github.com/JessYanCoding/ProgressManager
@@ -112,7 +112,7 @@ class GlobalConfiguration : ConfigModule {
                 RetrofitUrlManager.getInstance().with(okhttpBuilder)
             }
             .rxCacheConfiguration {//这里可以自己自定义配置 RxCache 的参数
-                    context1, rxCacheBuilder ->
+                    _, rxCacheBuilder ->
                 rxCacheBuilder.useExpiredDataIfLoaderNotAvailable(true)
                 //想自定义 RxCache 的缓存文件夹或者解析方式, 如改成 FastJson, 请 return rxCacheBuilder.persistence(cacheDirectory, new FastJsonSpeaker());
                 //否则请 return null;
